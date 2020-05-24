@@ -50,7 +50,7 @@ export function CliMain<T extends { new(...args: any[]): {}; }>(constructor: T) 
  * and passes the exit code as a parameter.
  * Finally calls process.exit with the exit code.
  */
-function run(MainClass: typeof CliMainClass) {
+function run(MainClass: any) {
     const main = new MainClass();
     let exitCode = 1;
     main.main()

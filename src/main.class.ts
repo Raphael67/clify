@@ -1,7 +1,5 @@
-export class CliMainClass {
-    async main(): Promise<number> {
-        return 0;
-    };
+export abstract class CliMainClass {
+    abstract async main(): Promise<number>;
 
     async stop(exitCode: number): Promise<number> {
         return exitCode;
