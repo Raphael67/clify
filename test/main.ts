@@ -2,14 +2,16 @@ import { CliMainClass, CliParameter, CliMain } from '../lib/index';
 
 @CliMain
 class Main extends CliMainClass {
-    @CliParameter({ demandOption: true, description: 'parameter' })
-    private parameter: string | undefined = undefined;
+    @CliParameter({ demandOption: true, description: 'parameter1' })
+    private parameter1: string | undefined = undefined;
 
-    @CliParameter({ description: 'parameter2' })
+    @CliParameter({ alias: 'p2', description: 'parameter2' })
     private parameter2: string = 'default';
 
     async main(): Promise<number> {
-        console.log(this.parameter);
+        console.log(this.parameter1);
+        console.log(this.parameter2);
+
         await new Promise((resolve, reject) => {
             setTimeout(() => {
                 console.log('timeout');
