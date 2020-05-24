@@ -15,6 +15,13 @@ The command line argument parsing is provided by [Yargs](https://www.npmjs.com/p
 npm i --save @corteks/clify
 ````
 
+Please be sure that your tsconfig file is configured as follow:
+```jsonc
+"target": "es6", // es6 minimum is mandatory if you need to address older version you will have to recompile this module
+"experimentalDecorators": true, // this is mandatory to use decorators
+"emitDecoratorMetadata": true // this is mandatory if you want clify to infer argument type from properties
+````
+
 ## 2. usage
 
 ```ts 
