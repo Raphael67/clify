@@ -4,6 +4,6 @@ export class CliMainClass {
     };
 
     async stop(exitCode: number): Promise<number> {
-        return 0;
+        return exitCode;
     }
 }
