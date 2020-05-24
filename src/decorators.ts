@@ -5,7 +5,7 @@ import { CliMainClass } from './main.class';
 const metadata: { [key: string]: any; } = {};
 
 /**
- * Register all properties decorated with yargs options
+ * Register all properties decorated with CliParameter as yargs options
  */
 export function CliParameter(options: yargs.Options) {
     return (target: any, propertyKey: string) => {
