@@ -28,7 +28,7 @@ export function CliMain<T extends { new(...args: any[]): {}; }>(constructor: T) 
         constructor(...rest: any[]) {
             super();
             if (!(this instanceof CliMainClass)) {
-                throw new Error('Your main class should implements CliMain');
+                throw new Error('Your main class should implement CliMain');
             }
             for (let propertyKey in metadata) {
                 metadata[propertyKey].default = (this as any)[propertyKey];
