@@ -10,7 +10,7 @@ const metadata: { [key: string]: any; } = {};
 export function CliParameter(options: yargs.Options = {}) {
     return (target: any, propertyKey: string) => {
         let type = Reflect.getMetadata("design:type", target, propertyKey);
-        options.type = options.type || type.name.toLowerCase();
+        if (type) options.type = options.type || type.name.toLowerCase();
         options.alias = options.alias || propertyKey.substring(0, 1);
         metadata[propertyKey] = options;
     };
