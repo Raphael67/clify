@@ -7,7 +7,7 @@ const metadata: { [key: string]: any; } = {};
 /**
  * Register all properties decorated with CliParameter as yargs options
  */
-export function CliParameter(options: yargs.Options) {
+export function CliParameter(options: yargs.Options = {}) {
     return (target: any, propertyKey: string) => {
         let type = Reflect.getMetadata("design:type", target, propertyKey);
         options.type = options.type || type.name.toLowerCase();
