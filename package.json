@@ -1,34 +1,44 @@
 {
-  "name": "yargs-decorator",
-  "version": "0.1.0",
-  "description": "",
-  "main": "lib/index.js",
-  "files": [
-    "lib"
-  ],
-  "engines": {
-    "node": ">= 12.16.2"
-  },
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "tsc",
-    "test": "npm run build && ts-node --project tsconfig.test.json test/main.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^14.0.5",
-    "@types/yargs": "^15.0.5",
-    "nodemon": "^2.0.4",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.9.3"
-  },
-  "dependencies": {
-    "reflect-metadata": "^0.1.13",
-    "yargs": "^15.3.1"
-  },
-  "directories": {
-    "lib": "lib"
-  }
+    "name": "clify",
+    "description": "Ease cli entry point scaffold with decorators",
+    "version": "0.1.0",
+    "author": "Raphael67",
+    "keywords": [
+        "command-line",
+        "decorators"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Raphael67/clify.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Raphael67/clify/issues"
+    },
+    "homepage": "https://github.com/Raphael67/clify#readme",
+    "main": "lib/index.js",
+    "files": [
+        "lib"
+    ],
+    "engines": {
+        "node": ">= 12.16.2"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prepublishOnly": "tsc",
+        "test": "npm run build && ts-node --project tsconfig.test.json test/main.ts"
+    },
+    "license": "GPL-3.0-or-later",
+    "devDependencies": {
+        "@types/node": "^14.0.5",
+        "@types/yargs": "^15.0.5",
+        "ts-node": "^8.10.1",
+        "typescript": "^3.9.3"
+    },
+    "dependencies": {
+        "reflect-metadata": "^0.1.13",
+        "yargs": "^15.3.1"
+    },
+    "directories": {
+        "lib": "lib"
+    }
 }
