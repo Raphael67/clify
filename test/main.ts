@@ -5,7 +5,7 @@ class Main extends CliMainClass {
     @CliParameter({ demandOption: true, description: 'parameter1' })
     private parameter1: string | undefined = undefined;
 
-    @CliParameter({ alias: 'p2', description: 'parameter2' })
+    @CliParameter()
     private parameter2: string = 'default';
 
     async main(): Promise<number> {
