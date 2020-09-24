@@ -1,4 +1,4 @@
-import { CliMainClass, CliParameter, CliMain } from '../lib/index';
+import { CliMainClass, CliParameter, CliMain, KeyPress, Modifiers } from '../lib/index';
 
 @CliMain
 class Main extends CliMainClass {
@@ -19,6 +19,11 @@ class Main extends CliMainClass {
             }, 5000);
         });
         return 0;
+    }
+
+    @KeyPress('space', Modifiers.NONE, 'This is a test function')
+    test() {
+        console.log('Space has been pressed.');
     }
 
     async stop(exitCode: number): Promise<number> {
