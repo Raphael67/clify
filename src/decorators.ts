@@ -1,6 +1,7 @@
 import yargs from 'yargs';
 import 'reflect-metadata';
 import { CliMainClass } from './main.class';
+import readline from 'readline';
 
 let main: CliMainClass & { [key: string]: () => any; };
 const metadata: { [key: string]: any; } = {};
@@ -76,6 +77,16 @@ export function CliMain<T extends { new(...args: any[]): {}; }>(constructor: T) 
  * Finally calls process.exit with the exit code.
  */
 function run(MainClass: any) {
+    readline.emitKeypressEvents(process.stdin);
+    if (functions.size > 0 && !process.stdin.setRawMode) {
+        process.stdout.write('Warning: process.stdin.setRawMode is not available.\n');
+        process.stdout.write('Warning: KeyPress event won\'t be detected.\n');
+        process.stdout.write('Warning: If you are using nodemon try --no-stdin parameter.\n');
+        functions.clear();
+    } else {
+        process.stdin.setRawMode(true);
+    }
+
     main = new MainClass();
 
     functions.forEach((value, key) => {
