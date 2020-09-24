@@ -1,7 +1,7 @@
 {
     "name": "@corteks/clify",
     "description": "Ease cli entry point scaffold with decorators",
-    "version": "0.1.3",
+    "version": "0.2.0",
     "author": "Raphael67",
     "keywords": [
         "command-line",
