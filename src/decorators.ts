@@ -78,13 +78,15 @@ export function CliMain<T extends { new(...args: any[]): {}; }>(constructor: T) 
  */
 function run(MainClass: any) {
     readline.emitKeypressEvents(process.stdin);
-    if (functions.size > 0 && !process.stdin.setRawMode) {
+    if (functions.size > 0) {
+        if (!process.stdin.setRawMode) {
         process.stdout.write('Warning: process.stdin.setRawMode is not available.\n');
         process.stdout.write('Warning: KeyPress event won\'t be detected.\n');
         process.stdout.write('Warning: If you are using nodemon try --no-stdin parameter.\n');
         functions.clear();
     } else {
         process.stdin.setRawMode(true);
+    }
     }
 
     main = new MainClass();
