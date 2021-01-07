@@ -35,7 +35,7 @@ import {
     CliMain,
     KeyPress,
     Modifiers,
-} from '../lib/index';
+} from '@corteks/clify';
 
 // Decorate your Main class
 // Extend the base class
