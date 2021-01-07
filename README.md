@@ -89,6 +89,34 @@ class Main extends CliMainClass {
 }
 ```
 
+If you do not want to exit when the main return, for example when you launch an async process, use the `done(exitCode: number) => void` callback passed as the `main` function parameter:
+
+```ts
+// Main.ts
+// ...
+@CliMain
+class Main extends CliMainClass {
+    // ...
+    async main(done: (exitCode: number) => void): Promise<number> {
+        myAsyncProcess()
+            .then(() => {
+                done(0)
+            })
+            .catch(() => {
+                done(1)
+            })
+
+        return 0;
+    }
+
+    // ...
+    async stop(exitCode: number): Promise<number> {
+        console.log(exitCode);
+        return exitCode;
+    }
+}
+```
+
 ## Results
 
 ```
