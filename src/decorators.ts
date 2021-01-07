@@ -6,6 +6,14 @@ import readline from 'readline';
 let main: CliMainClass & { [key: string]: () => any; };
 const metadata: { [key: string]: any; } = {};
 
+process.on('SIGINT', async () => {
+    await quit();
+});
+
+process.on('SIGTERM', async () => {
+    await quit();
+});
+
 /**
  * Register all properties decorated with CliParameter as yargs options
  */
@@ -111,13 +119,7 @@ function run(MainClass: any) {
         if (fun) main[fun[0]]();
     });
 
-    process.on('SIGINT', async () => {
-        await quit();
-    });
 
-    process.on('SIGTERM', async () => {
-        await quit();
-    });
 
     let exitCode = 1;
     main.main()
