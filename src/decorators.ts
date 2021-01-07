@@ -1,7 +1,7 @@
-import yargs from 'yargs';
-import 'reflect-metadata';
-import { CliMainClass } from './main.class';
 import readline from 'readline';
+import 'reflect-metadata';
+import yargs from 'yargs';
+import { CliMainClass } from './main.class';
 
 let main: CliMainClass & { [key: string]: () => any; };
 const metadata: { [key: string]: any; } = {};
@@ -38,10 +38,10 @@ export enum Modifiers {
 type ModifierFlag = number;
 
 /**
- * 
+ *
  * @param key The key name
  * @param modifiers A set of (Modifiers.CTRL, Modifiers.META, Modifiers.SHIFT)
- * 
+ *
  * Launch a function when the specified keys are pressed.
  */
 export function KeyPress(key: string, modifiers: ModifierFlag = Modifiers.NONE, description: string = '') {
@@ -51,7 +51,7 @@ export function KeyPress(key: string, modifiers: ModifierFlag = Modifiers.NONE, 
 }
 
 /**
- * Initialize yargs with all options registered at once, to prevent truncated help 
+ * Initialize yargs with all options registered at once, to prevent truncated help
  * message if one failed.
  * Alter the constructor to fill the properties with the command line parameters
  * parsed by yargs.
@@ -84,17 +84,17 @@ export function CliMain<T extends { new(...args: any[]): {}; }>(constructor: T) 
  * and passes the exit code as a parameter.
  * Finally calls process.exit with the exit code.
  */
-function run(MainClass: any) {
+async function run(MainClass: any) {
     readline.emitKeypressEvents(process.stdin);
     if (functions.size > 0) {
         if (!process.stdin.setRawMode) {
-        process.stdout.write('Warning: process.stdin.setRawMode is not available.\n');
-        process.stdout.write('Warning: KeyPress event won\'t be detected.\n');
-        process.stdout.write('Warning: If you are using nodemon try --no-stdin parameter.\n');
-        functions.clear();
-    } else {
-        process.stdin.setRawMode(true);
-    }
+            process.stdout.write('Warning: process.stdin.setRawMode is not available.\n');
+            process.stdout.write('Warning: KeyPress event won\'t be detected.\n');
+            process.stdout.write('Warning: If you are using nodemon try --no-stdin parameter.\n');
+            functions.clear();
+        } else {
+            process.stdin.setRawMode(true);
+        }
     }
 
     main = new MainClass();
@@ -119,19 +119,27 @@ function run(MainClass: any) {
         if (fun) main[fun[0]]();
     });
 
+    const callback = await done(main);
+    if (main.main.length === 1) {
+        main.main(callback);
+    } else {
+        const mainExitCode = await main.main();
+        callback(mainExitCode);
+    }
+}
 
-
-    let exitCode = 1;
-    main.main()
-        .then((returnValue: number) => {
-            exitCode = returnValue;
-        })
-        .finally(() => {
-            return main.stop(exitCode);
-        })
-        .finally(() => {
+async function done(main: CliMainClass) {
+    return async (exitCode: number): Promise<void> => {
+        let stopExitCode = 0;
+        try {
+            stopExitCode = await main.stop(exitCode);
+        } catch (err) {
+            console.error(err);
+            stopExitCode = 1;
+        } finally {
             process.exit(exitCode);
-        });
+        }
+    };
 }
 
 function quit() {
