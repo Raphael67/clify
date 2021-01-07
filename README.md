@@ -59,6 +59,7 @@ class Main extends CliMainClass {
     async main(): Promise<number> {
         console.log(this.parameter1);
         console.log(this.parameter2);
+        console.log(this._); // All inline parameters are stored as a string[].
 
         await new Promise((resolve, reject) => {
             setTimeout(() => {

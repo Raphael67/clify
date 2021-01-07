@@ -72,6 +72,7 @@ export function CliMain<T extends { new(...args: any[]): {}; }>(constructor: T) 
                 if (metadata[propertyKey])
                     (this as any)[propertyKey] = args[propertyKey];
             }
+            (this as any)['_'] = args['_'];
         }
     } as any;
     run(MainClass);
